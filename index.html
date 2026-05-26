@@ -425,6 +425,14 @@ textarea.q-input{resize:vertical;min-height:80px;}
 .ex-alt-wrap{display:flex;align-items:center;gap:6px;margin-top:4px;}.ex-alt-btn{background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-size:11px;padding:1px 8px;border-radius:3px;cursor:pointer;font-weight:700;}.ex-alt-content{font-size:10px;color:var(--white-dim);}.ex-alt-label{color:var(--gold);font-weight:600;margin-right:4px;}.ex-conj{color:var(--gold);font-size:9px;display:block;margin-top:2px;}.ig-link{display:inline-block;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.25);color:var(--gold);font-size:10px;padding:4px 12px;border-radius:2px;text-decoration:none;}.biblio-block{background:var(--dark2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:20px;}.biblio-block-title{background:linear-gradient(90deg,#1a1500,var(--dark2));border-bottom:1px solid var(--border);padding:13px 20px;font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold);}.biblio-item{padding:16px 20px;border-bottom:1px solid rgba(255,255,255,0.04);}.biblio-item:last-child{border-bottom:none;}.biblio-tag{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}.biblio-item p{font-size:11px;color:var(--white-dim);line-height:1.9;}
 .zona-verde{background:rgba(80,200,80,0.12);color:#7dd87d;border:1px solid rgba(80,200,80,0.3);font-size:9px;padding:2px 8px;border-radius:10px;font-weight:600;}.zona-amarela{background:rgba(255,200,50,0.12);color:#ffc832;border:1px solid rgba(255,200,50,0.3);font-size:9px;padding:2px 8px;border-radius:10px;font-weight:600;}.zona-vermelha{background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.3);font-size:9px;padding:2px 8px;border-radius:10px;font-weight:600;}
 .corrida-semana{background:var(--dark2);border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-bottom:14px;}.corrida-header{background:linear-gradient(90deg,#1a1500,var(--dark2));border-bottom:1px solid var(--border);padding:12px 18px;font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold);}.corrida-treino{padding:12px 18px;border-bottom:1px solid rgba(255,255,255,0.04);}.corrida-treino:last-child{border-bottom:none;}.corrida-tipo{font-size:10px;font-weight:600;color:var(--white);margin-bottom:4px;display:flex;align-items:center;gap:8px;}.corrida-desc{font-size:11px;color:var(--white-dim);line-height:1.8;}
+
+/* ── DIETA TABS ─────────────────────────────────────────────────── */
+.dieta-panel{display:none;}
+.dieta-panel.active{display:block;animation:fadeUp 0.4s ease;}
+.dieta-tab-btn{background:var(--dark2);border:1px solid var(--border);color:var(--white-dim);font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.5px;padding:12px 20px;min-height:44px;cursor:pointer;border-radius:2px;transition:all 0.3s;white-space:nowrap;-webkit-tap-highlight-color:transparent;flex-shrink:0;text-align:left;line-height:1.3;}
+.dieta-tab-btn:hover{color:var(--gold);border-color:var(--border);}
+.dieta-tab-btn.active{color:var(--gold);border-color:var(--gold);background:var(--gold-dim);}
+
 </style></head><body>
 <div class="watermark">Consultoria LB · Exclusivo para Leonan Luppi</div>
 <div class="timer-overlay" id="timerOverlay"><div class="timer-box"><div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--white-dim);margin-bottom:16px;">Descanso entre séries</div><div class="timer-presets"><button class="timer-preset" onclick="setTimer(45)">45s</button><button class="timer-preset" onclick="setTimer(60)">60s</button><button class="timer-preset" onclick="setTimer(90)">90s</button><button class="timer-preset" onclick="setTimer(120)">2 min</button></div><div class="timer-count" id="timerCount">60</div><div class="timer-label">segundos</div><div class="timer-btns"><button class="timer-btn" onclick="startTimer()">▶ Iniciar</button><button class="timer-btn" onclick="pauseTimer()">⏸ Pausar</button><button class="timer-btn" onclick="resetTimer()">↺ Reset</button><button class="timer-btn" onclick="closeTimer()">✕ Fechar</button></div></div></div>
@@ -483,34 +491,37 @@ textarea.q-input{resize:vertical;min-height:80px;}
   </div>
 </section><section id="dieta" class="section">
   <div class="section-header"><h2>Planejamento <span>Alimentar</span></h2><div class="section-line"></div></div>
-  <div class="sub-search-wrap"><h4>🔍 Busca rápida de substitutos</h4><input class="sub-search-input" type="text" id="subSearch" placeholder="Digite o alimento..." oninput="searchSubs()"><div id="sub-results"></div></div>
+  <div class="sub-search-wrap"><h4>🔍 Busca rápida de substitutos</h4><input class="sub-search-input" type="text" id="subSearch" placeholder="Digite o alimento..." oninput="searchSubs()"><div id="sub-results"></div>
   <div style="background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:3px;padding:10px 14px;margin-bottom:12px;font-size:11px;color:#fbbf24;line-height:1.8;">
     ⚠️ <strong>Sintomas de hipoglicemia:</strong> não fique mais de 4h sem comer. Garanta sempre carboidrato antes dos treinos. O sachê de eletrólitos + gel de carboidrato entre Hyrox e musculação é essencial.
   </div>
-  <div class="meal-total"><div class="total-pill"><span class="label">Total diário</span><span class="value">~2.638</span><span style="font-size:10px;color:var(--white-dim);">kcal</span></div></div>
 
+  <div class="treino-tabs" style="margin-bottom:20px;">
+    <button class="dieta-tab-btn active" onclick="showDieta('dieta-treino',this)">🏋️ Dia de Treino<span style="font-size:9px;opacity:0.6;display:block;margin-top:2px;">~2.638 kcal</span></button>
+    <button class="dieta-tab-btn" onclick="showDieta('dieta-repouso',this)">😴 Dia sem Treino<span style="font-size:9px;opacity:0.6;display:block;margin-top:2px;">~1.919 kcal</span></button>
+  </div>
+
+  <div id="dieta-treino" class="dieta-panel active">
+    <div class="meal-total"><div class="total-pill"><span class="label">Total diário</span><span class="value">~2.638</span><span style="font-size:10px;color:var(--white-dim);">kcal</span></div></div>
   <div class="meal-card">
     <div class="meal-header"><div class="meal-header-left"><div class="meal-num">1</div><div><div class="meal-name">Pré-Treino</div><span class="meal-time">Antes do Hyrox + musculação</span></div></div><div class="meal-kcal">180 <span>kcal</span></div></div>
     <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
       <tr><td class="food-name">Banana</td><td class="food-qty">2 unidades</td><td class="food-kcal">180</td><td class="food-sub">Mamão <strong>200g</strong> · Maçã <strong>200g</strong> · Melão <strong>300g</strong> · Abacaxi <strong>250g</strong></td></tr>
-    </tbody></table></div>
-    <div style="background:rgba(201,168,76,0.05);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:3px;padding:8px 12px;margin-top:8px;font-size:10px;color:var(--white-dim);">⚡ <strong style="color:var(--gold)">Entre o Hyrox e a musculação:</strong> 1 sachê de eletrólitos + 1 gel de carboidrato</div>
-    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-1" onchange="saveObs(this)"></textarea></div>
+    </tbody></table></div><div style="background:rgba(201,168,76,0.05);border:1px solid var(--border);border-left:3px solid var(--gold);border-radius:3px;padding:8px 12px;margin-top:8px;font-size:10px;color:var(--white-dim);">⚡ <strong style="color:var(--gold)">Entre o Hyrox e a musculação:</strong> 1 sachê de eletrólitos + 1 gel de carboidrato</div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-t1" onchange="saveObs(this)"></textarea></div>
   </div>
-
   <div class="meal-card">
     <div class="meal-header"><div class="meal-header-left"><div class="meal-num">2</div><div><div class="meal-name">Pós-Treino</div><span class="meal-time">Após a musculação</span></div></div><div class="meal-kcal">612 <span>kcal</span></div></div>
     <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
       <tr><td class="food-name">5 claras + 1 ovo inteiro</td><td class="food-qty">—</td><td class="food-kcal">171</td><td class="food-sub">Frango <strong>120g</strong> · Atum <strong>120g</strong> · Patinho <strong>120g</strong> · Whey <strong>35g</strong></td></tr>
       <tr><td class="food-name">Granola ou Aveia</td><td class="food-qty">60g</td><td class="food-kcal">236</td><td class="food-sub">Aveia <strong>50g</strong> · Granola sem açúcar <strong>50g</strong> · Cuscuz <strong>150g</strong> · Tapioca <strong>120g</strong></td></tr>
       <tr><td class="food-name">Cacau em pó</td><td class="food-qty">20g</td><td class="food-kcal">15</td><td class="food-sub">—</td></tr>
-      <tr><td class="food-name">Geleia de frutas</td><td class="food-qty">20g</td><td class="food-kcal">0</td><td class="food-sub">—</td></tr>
+      <tr><td class="food-name">Geleia de frutas</td><td class="food-qty">20g</td><td class="food-kcal">50</td><td class="food-sub">—</td></tr>
       <tr><td class="food-name">Mamão</td><td class="food-qty">150g</td><td class="food-kcal">60</td><td class="food-sub">Banana <strong>150g</strong> · Melão <strong>200g</strong> · Maçã <strong>160g</strong></td></tr>
       <tr><td class="food-name">Frutas variadas</td><td class="food-qty">150g</td><td class="food-kcal">65</td><td class="food-sub">Banana · Maçã · Mamão · Melão · Abacaxi</td></tr>
     </tbody></table></div>
-    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-2" onchange="saveObs(this)"></textarea></div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-t2" onchange="saveObs(this)"></textarea></div>
   </div>
-
   <div class="meal-card">
     <div class="meal-header"><div class="meal-header-left"><div class="meal-num">3</div><div><div class="meal-name">Almoço</div><span class="meal-time">Refeição principal</span></div></div><div class="meal-kcal">654 <span>kcal</span></div></div>
     <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
@@ -520,21 +531,18 @@ textarea.q-input{resize:vertical;min-height:80px;}
       <tr><td class="food-name">Verduras e vegetais</td><td class="food-qty">200g</td><td class="food-kcal">30</td><td class="food-sub">Couve · Brócolis · Cenoura · Abobrinha · Espinafre</td></tr>
       <tr><td class="food-name">Abacaxi</td><td class="food-qty">100g</td><td class="food-kcal">48</td><td class="food-sub">Banana · Maçã · Mamão · Melão</td></tr>
     </tbody></table></div>
-    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-3" onchange="saveObs(this)"></textarea></div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-t3" onchange="saveObs(this)"></textarea></div>
   </div>
-
   <div class="meal-card">
     <div class="meal-header"><div class="meal-header-left"><div class="meal-num" style="background:rgba(34,197,94,0.2);border-color:rgba(34,197,94,0.4);">4</div><div><div class="meal-name">Lanche da Tarde</div><span class="meal-time">⚡ Reforçado para recuperação</span></div></div><div class="meal-kcal">~476 <span>kcal</span></div></div>
-    <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:3px;padding:8px 12px;margin-bottom:10px;font-size:10px;color:#4ade80;">✅ Ajuste: frutas 100g → <strong>200g</strong> · aveia 30g → <strong>50g</strong> · +157 kcal para melhorar recuperação e criar cenário anabólico mais favorável.</div>
-    <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
+    <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:3px;padding:8px 12px;margin-bottom:10px;font-size:10px;color:#4ade80;">✅ Ajuste: frutas 100g → <strong>200g</strong> · aveia 30g → <strong>50g</strong> · +157 kcal para recuperação.</div><div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
       <tr><td class="food-name">Whey protein</td><td class="food-qty">30g</td><td class="food-kcal">108</td><td class="food-sub">Frango <strong>100g</strong> · Atum <strong>100g</strong> · Patinho <strong>100g</strong> · 8 claras</td></tr>
       <tr><td class="food-name">Iogurte</td><td class="food-qty">200ml</td><td class="food-kcal">83</td><td class="food-sub">Leite desnatado <strong>200ml</strong> · Kefir <strong>200ml</strong></td></tr>
-      <tr><td class="food-name">Frutas variadas</td><td class="food-qty"><strong>200g</strong> <span style="color:var(--gold);font-size:9px;">↑+100g</span></td><td class="food-kcal">87</td><td class="food-sub">Banana · Maçã · Mamão · Melão · Abacaxi</td></tr>
-      <tr><td class="food-name">Aveia</td><td class="food-qty"><strong>50g</strong> <span style="color:var(--gold);font-size:9px;">↑+20g</span></td><td class="food-kcal">197</td><td class="food-sub">Granola sem açúcar <strong>50g</strong> · Cuscuz <strong>100g</strong> · Tapioca <strong>80g</strong></td></tr>
+      <tr><td class="food-name">Frutas variadas</td><td class="food-qty">200g</td><td class="food-kcal">87</td><td class="food-sub">Banana · Maçã · Mamão · Melão · Abacaxi</td></tr>
+      <tr><td class="food-name">Aveia</td><td class="food-qty">50g</td><td class="food-kcal">197</td><td class="food-sub">Granola sem açúcar <strong>50g</strong> · Cuscuz <strong>100g</strong> · Tapioca <strong>80g</strong></td></tr>
     </tbody></table></div>
-    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-4" onchange="saveObs(this)"></textarea></div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-t4" onchange="saveObs(this)"></textarea></div>
   </div>
-
   <div class="meal-card">
     <div class="meal-header"><div class="meal-header-left"><div class="meal-num">5</div><div><div class="meal-name">Jantar</div><span class="meal-time">Refeição principal noturna</span></div></div><div class="meal-kcal">654 <span>kcal</span></div></div>
     <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
@@ -544,8 +552,57 @@ textarea.q-input{resize:vertical;min-height:80px;}
       <tr><td class="food-name">Verduras e vegetais</td><td class="food-qty">200g</td><td class="food-kcal">30</td><td class="food-sub">Couve · Brócolis · Cenoura · Abobrinha · Espinafre</td></tr>
       <tr><td class="food-name">Abacaxi</td><td class="food-qty">100g</td><td class="food-kcal">48</td><td class="food-sub">Banana · Maçã · Mamão · Melão</td></tr>
     </tbody></table></div>
-    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-5" onchange="saveObs(this)"></textarea></div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-t5" onchange="saveObs(this)"></textarea></div>
   </div>
+  </div>
+
+  <div id="dieta-repouso" class="dieta-panel">
+    <div class="meal-total"><div class="total-pill"><span class="label">Total diário</span><span class="value">~1.919</span><span style="font-size:10px;color:var(--white-dim);">kcal</span></div></div>
+  <div class="meal-card">
+    <div class="meal-header"><div class="meal-header-left"><div class="meal-num">1</div><div><div class="meal-name">Café da Manhã</div><span class="meal-time">Refeição inicial — sem pré-treino</span></div></div><div class="meal-kcal">429 <span>kcal</span></div></div>
+    <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
+      <tr><td class="food-name">5 claras + 1 ovo inteiro</td><td class="food-qty">—</td><td class="food-kcal">171</td><td class="food-sub">Frango <strong>120g</strong> · Atum <strong>120g</strong> · Patinho <strong>120g</strong> · Whey <strong>35g</strong></td></tr>
+      <tr><td class="food-name">Granola ou Aveia</td><td class="food-qty">30g</td><td class="food-kcal">118</td><td class="food-sub">Aveia <strong>30g</strong> · Granola sem açúcar <strong>30g</strong> · Cuscuz <strong>75g</strong> · Tapioca <strong>60g</strong></td></tr>
+      <tr><td class="food-name">Cacau em pó</td><td class="food-qty">20g</td><td class="food-kcal">15</td><td class="food-sub">—</td></tr>
+      <tr><td class="food-name">Mamão</td><td class="food-qty">150g</td><td class="food-kcal">60</td><td class="food-sub">Banana <strong>150g</strong> · Melão <strong>200g</strong> · Maçã <strong>160g</strong></td></tr>
+      <tr><td class="food-name">Frutas variadas</td><td class="food-qty">150g</td><td class="food-kcal">65</td><td class="food-sub">Banana · Maçã · Mamão · Melão · Abacaxi</td></tr>
+    </tbody></table></div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-r1" onchange="saveObs(this)"></textarea></div>
+  </div>
+  <div class="meal-card">
+    <div class="meal-header"><div class="meal-header-left"><div class="meal-num">2</div><div><div class="meal-name">Almoço</div><span class="meal-time">Refeição principal</span></div></div><div class="meal-kcal">590 <span>kcal</span></div></div>
+    <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
+      <tr><td class="food-name">Arroz branco</td><td class="food-qty">150g</td><td class="food-kcal">192</td><td class="food-sub">Batata inglesa <strong>135g</strong> · Batata-doce <strong>75g</strong> · Macarrão <strong>75g</strong></td></tr>
+      <tr><td class="food-name">Feijão</td><td class="food-qty">100g</td><td class="food-kcal">76</td><td class="food-sub">Lentilha <strong>100g</strong> · Grão-de-bico <strong>100g</strong></td></tr>
+      <tr><td class="food-name">Peito de frango grelhado</td><td class="food-qty">150g</td><td class="food-kcal">244</td><td class="food-sub">Patinho <strong>150g</strong> · Tilápia <strong>160g</strong> · Atum <strong>150g</strong></td></tr>
+      <tr><td class="food-name">Verduras e vegetais</td><td class="food-qty">200g</td><td class="food-kcal">30</td><td class="food-sub">Couve · Brócolis · Cenoura · Abobrinha · Espinafre</td></tr>
+      <tr><td class="food-name">Abacaxi</td><td class="food-qty">100g</td><td class="food-kcal">48</td><td class="food-sub">Banana · Maçã · Mamão · Melão</td></tr>
+    </tbody></table></div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-r2" onchange="saveObs(this)"></textarea></div>
+  </div>
+  <div class="meal-card">
+    <div class="meal-header"><div class="meal-header-left"><div class="meal-num">3</div><div><div class="meal-name">Lanche da Tarde</div><span class="meal-time">Recuperação</span></div></div><div class="meal-kcal">374 <span>kcal</span></div></div>
+    <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
+      <tr><td class="food-name">Whey protein</td><td class="food-qty">30g</td><td class="food-kcal">108</td><td class="food-sub">Frango <strong>100g</strong> · Atum <strong>100g</strong> · Patinho <strong>100g</strong> · 8 claras</td></tr>
+      <tr><td class="food-name">Iogurte</td><td class="food-qty">200ml</td><td class="food-kcal">83</td><td class="food-sub">Leite desnatado <strong>200ml</strong> · Kefir <strong>200ml</strong></td></tr>
+      <tr><td class="food-name">Frutas variadas</td><td class="food-qty">150g</td><td class="food-kcal">65</td><td class="food-sub">Banana · Maçã · Mamão · Melão · Abacaxi</td></tr>
+      <tr><td class="food-name">Aveia</td><td class="food-qty">30g</td><td class="food-kcal">118</td><td class="food-sub">Granola sem açúcar <strong>30g</strong> · Cuscuz <strong>60g</strong> · Tapioca <strong>50g</strong></td></tr>
+    </tbody></table></div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-r3" onchange="saveObs(this)"></textarea></div>
+  </div>
+  <div class="meal-card">
+    <div class="meal-header"><div class="meal-header-left"><div class="meal-num">4</div><div><div class="meal-name">Jantar</div><span class="meal-time">Refeição principal noturna</span></div></div><div class="meal-kcal">526 <span>kcal</span></div></div>
+    <div class="meal-table-wrap"><table class="meal-table"><thead><tr><th>Alimento</th><th>Qtd.</th><th>kcal</th><th>Substituições</th></tr></thead><tbody>
+      <tr><td class="food-name">Arroz branco</td><td class="food-qty">100g</td><td class="food-kcal">128</td><td class="food-sub">Batata inglesa <strong>90g</strong> · Batata-doce <strong>50g</strong> · Macarrão <strong>50g</strong></td></tr>
+      <tr><td class="food-name">Feijão</td><td class="food-qty">100g</td><td class="food-kcal">76</td><td class="food-sub">Lentilha <strong>100g</strong> · Grão-de-bico <strong>100g</strong></td></tr>
+      <tr><td class="food-name">Peito de frango grelhado</td><td class="food-qty">150g</td><td class="food-kcal">244</td><td class="food-sub">Patinho <strong>150g</strong> · Tilápia <strong>160g</strong> · Atum <strong>150g</strong></td></tr>
+      <tr><td class="food-name">Verduras e vegetais</td><td class="food-qty">200g</td><td class="food-kcal">30</td><td class="food-sub">Couve · Brócolis · Cenoura · Abobrinha · Espinafre</td></tr>
+      <tr><td class="food-name">Abacaxi</td><td class="food-qty">100g</td><td class="food-kcal">48</td><td class="food-sub">Banana · Maçã · Mamão · Melão</td></tr>
+    </tbody></table></div>
+    <div class="meal-obs-area"><textarea placeholder="Observações..." data-key="meal-obs-r4" onchange="saveObs(this)"></textarea></div>
+  </div>
+  </div>
+
 </section><section id="treino" class="section"><div class="section-header"><h2>Planejamento de <span>Treino</span></h2><div class="section-line"></div></div>
 
 <div class="info-card" style="background:rgba(201,168,76,0.06);border:1px solid var(--border);border-radius:4px;padding:14px 18px;margin-bottom:20px;font-size:12px;color:var(--white-dim);line-height:1.9;">
@@ -1850,6 +1907,15 @@ function showSemana(id, btn){
   if(el) el.classList.add('active');
   if(btn) btn.classList.add('active');
 }
+
+function showDieta(id, btn){
+  document.querySelectorAll('.dieta-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.dieta-tab-btn').forEach(t=>t.classList.remove('active'));
+  const el = document.getElementById(id);
+  if(el) el.classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
 
 
 // ── TEMA ──
